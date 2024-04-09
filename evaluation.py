@@ -55,7 +55,7 @@ def generate_confusion_matrix(class_names, y_test, y_pred):
     """
     cm = confusion_matrix(y_test, y_pred)
     plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
-    plt.title('Confusion Matrix')
+    plt.title('Förvirrings matris')
     plt.colorbar()
     tick_marks = np.arange(len(class_names))
     plt.xticks(tick_marks, class_names, rotation=45)
@@ -64,8 +64,8 @@ def generate_confusion_matrix(class_names, y_test, y_pred):
     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
         plt.text(j, i, format(cm[i, j], 'd'), horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
     plt.tight_layout()
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
+    plt.ylabel('Faktiskt värde')
+    plt.xlabel('Förutspått värde')
     plt.show()
 
 
