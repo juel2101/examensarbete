@@ -9,25 +9,25 @@ import SVM
 
 def main():
 
-    X, y, class_names = SVM_IRIS.load_dataset('mnist')
+    X, y, class_names = SVM.load_dataset('iris')
 
     # Split the dataset.
-    X_train, X_test, y_train, y_test = SVM_IRIS.split_dataset(X, y, 0.15, 17)
+    X_train, X_test, y_train, y_test = SVM.split_dataset(X, y, 0.3, 17)
 
     # Train the SVM model.
-    svm_model = SVM_IRIS.train_svm_model(X_train, y_train)
+    svm_model = SVM.train_svm_model(X_train, y_train)
 
     # Make predictions.
-    y_pred = SVM_IRIS.predict_svm_model(svm_model, X_test)
+    y_pred = SVM.predict_svm_model(svm_model, X_test)
 
     # Evaluate the model.
-    accuracy, precision, recall, f1 = SVM_IRIS.evaluate_model(y_test, y_pred)
+    accuracy, precision, recall, f1 = SVM.evaluate_model(y_test, y_pred)
 
     # Print the results.
     print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}, F1-Score: {f1}")
 
     # Plot the confusion matrix.
-    SVM_IRIS.plot_confusion_matrix(y_test, y_pred, class_names=class_names)
+    SVM.plot_confusion_matrix(y_test, y_pred, class_names=class_names)
     plt.show()
 
 

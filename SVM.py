@@ -100,7 +100,7 @@ def plot_confusion_matrix(y_test, y_pred, class_names):
     cm = confusion_matrix(y_test, y_pred)
 
     # Plotting the confusion matrix
-    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.imshow(cm, interpolation='nearest', cmap="Greens")
     plt.title('Förvirringsmatris')
     plt.colorbar()
     tick_marks = np.arange(len(class_names))
