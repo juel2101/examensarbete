@@ -2,7 +2,6 @@
 # Datum: 2024-
 # Kurs: DT099G, examensarbete
 
-
 from sklearn.tree import DecisionTreeClassifier
 
 
@@ -16,4 +15,3 @@ def train_decision_tree(x_train, y_train):
     clf = DecisionTreeClassifier()
     clf.fit(x_train, y_train)
     return clf
-
