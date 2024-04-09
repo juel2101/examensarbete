@@ -54,7 +54,7 @@ def generate_confusion_matrix(class_names, y_test, y_pred):
     :param y_pred: Predicted labels by the model
     """
     cm = confusion_matrix(y_test, y_pred)
-    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.imshow(cm, interpolation='nearest', cmap='Greens')
     plt.title('Förvirrings matris')
     plt.colorbar()
     tick_marks = np.arange(len(class_names))
@@ -71,7 +71,7 @@ def generate_confusion_matrix(class_names, y_test, y_pred):
 
 def predict_model(clf, x_test):
     """
-    Function to make predictions using a trained decision tree classifier
+    Function to make predictions using a trained model classifier
     :param clf: Trained decision tree classifier
     :param x_test: Test data features
     :return: Array of predicted labels for the test data
