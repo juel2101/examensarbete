@@ -1,5 +1,5 @@
 # Författare: Caroline Berglin
-# Datum: 2024-
+# Datum: 2024-04-09
 # Kurs: DT099G, examensarbete
 
 from sklearn.model_selection import train_test_split
