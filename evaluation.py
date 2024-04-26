@@ -1,7 +1,6 @@
-# Författare: Caroline Berglin
-# Datum: 2024-04-09
-# Kurs: DT099G, examensarbete
-
+# Authors: Caroline Berglin and Julia Ellström
+# Course: DT099G, Examensarbete
+# Date: 2024-04-26
 
 from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, \
@@ -22,10 +21,16 @@ def predict_model(model, x_test):
 
 def evaluate_model(y_test, y_pred):
     """
-    Function to evaluate the model. Returns accuracy, precision, recall, and F1 score.
-    :param y_test: True labels of the test dataset
-    :param y_pred: Predicted labels by the model
-    :return: The values accuracy, precision, recall and F1
+    Evaluate the performance of a trained model.
+
+    :param y_test: True labels of the test data.
+    :param y_pred: Predicted labels for the test data.
+
+    :return accuracy: Accuracy of the model.
+    :return precision: Precision of the model.
+    :return recall: Recall of the model.
+    :return f1: F1-score of the model.
+
     """
     accuracy = accuracy_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred, average='macro')
@@ -34,13 +39,18 @@ def evaluate_model(y_test, y_pred):
     return accuracy, precision, recall, f1
 
 
-def generate_confusion_matrix(class_names, y_test, y_pred):
+def generate_confusion_matrix(model_type, dataset_name, class_names, y_test, y_pred):
     """
-    Function to generate and display a confusion matrix
-    :param class_names: Names of the classes in the dataset
-    :param y_test: True labels of the test dataset
-    :param y_pred: Predicted labels by the model
+    Generates and display a confusion matrix.
+
+    :param model_type: Type of model.
+    :param dataset_name: Name of dataset.
+    :param class_names: Names of the classes in the dataset.
+    :param y_test: True labels of the test dataset.
+    :param y_pred: Predicted labels by the model.
     """
+
+    # Calculate confusion matrix.
     cm = confusion_matrix(y_test, y_pred)
 
     # Plot confusion matrix.
