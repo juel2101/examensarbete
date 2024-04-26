@@ -5,9 +5,10 @@
 
 import itertools
 import numpy as np
+import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn import datasets
-from sklearn.datasets import fetch_openml
+from sklearn.datasets import fetch_openml, fetch_covtype
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
 
@@ -17,11 +18,14 @@ def load_dataset(dataset_name):
     :param dataset_name: Name of the dataset to load (iris or mnist)
     :return: x: feature data of the dataset, y: target or label data corresponding to x and tha name of the classes in the dataset.
     """
-    if dataset_name == 'iris':
-        data = datasets.load_iris()
+    if dataset_name == 'coverType':
+        data = fetch_covtype()
         x = data.data
         y = data.target
-        class_names = data.target_names
+        # Defining class names based on the dataset documentation
+        class_names = ['Spruce/Fir', 'Lodgepole Pine', 'Ponderosa Pine', 'Cottonwood/Willow', 'Aspen', 'Douglas-fir',
+                       'Krummholz']
+
     elif dataset_name == 'mnist':
         mnist = fetch_openml('mnist_784', version=1)
         x = mnist.data / 255.0
