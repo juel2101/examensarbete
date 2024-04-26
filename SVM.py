@@ -14,15 +14,22 @@ import itertools
 
 
 def load_dataset(name):
+    """
+    Load and preprocess a dataset.
+    :param name:
+    :return:
+    """
     if name == 'iris':
         dataset = datasets.load_iris()
         X = dataset.data
         y = dataset.target
         target_names = dataset.target_names
     elif name == 'mnist':
-        dataset = fetch_openml('mnist_784', version=1, as_frame=False)
+        # Fetch the MNIST dataset from OpenML.
+        dataset = fetch_openml('mnist_784', version=1)
+        # Scale pixel values to be between the range [0,1].
         X = dataset.data / 255.0
-        y = dataset.target.astype(int)
+        y = dataset.target
         target_names = [str(i) for i in range(10)]
     else:
         raise ValueError("Datasetet är inte tillgängligt")
