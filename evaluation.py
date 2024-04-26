@@ -3,37 +3,21 @@
 # Kurs: DT099G, examensarbete
 
 
-import itertools
-import numpy as np
-import pandas as pd
 from matplotlib import pyplot as plt
-from sklearn import datasets
-from sklearn.datasets import fetch_openml, fetch_covtype
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, \
+    ConfusionMatrixDisplay
 
 
-def load_dataset(dataset_name):
+def predict_model(model, x_test):
     """
-    Function to load a specified dataset. Return the data, labels and class name.
-    :param dataset_name: Name of the dataset to load (iris or mnist)
-    :return: x: feature data of the dataset, y: target or label data corresponding to x and tha name of the classes in the dataset.
-    """
-    if dataset_name == 'coverType':
-        data = fetch_covtype()
-        x = data.data
-        y = data.target
-        # Defining class names based on the dataset documentation
-        class_names = ['Spruce/Fir', 'Lodgepole Pine', 'Ponderosa Pine', 'Cottonwood/Willow', 'Aspen', 'Douglas-fir',
-                       'Krummholz']
+    Predict labels using a trained model.
 
-    elif dataset_name == 'mnist':
-        mnist = fetch_openml('mnist_784', version=1)
-        x = mnist.data / 255.0
-        y = mnist.target.astype(int)
-        class_names = [str(i) for i in range(10)]
-    else:
-        raise ValueError("Dataset not recognized. Please use 'iris' or 'mnist'.")
-    return x, y, class_names
+    :param model: Trained model.
+    :param x_test: Features of the test data.
+
+    :return: Predicted labels for the test data.
+    """
+    return model.predict(x_test)
 
 
 def evaluate_model(y_test, y_pred):
@@ -58,26 +42,30 @@ def generate_confusion_matrix(class_names, y_test, y_pred):
     :param y_pred: Predicted labels by the model
     """
     cm = confusion_matrix(y_test, y_pred)
-    plt.imshow(cm, interpolation='nearest', cmap='Greens')
-    plt.title('Förvirrings matris')
-    plt.colorbar()
-    tick_marks = np.arange(len(class_names))
-    plt.xticks(tick_marks, class_names, rotation=45)
-    plt.yticks(tick_marks, class_names)
-    thresh = cm.max() / 2.
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        plt.text(j, i, format(cm[i, j], 'd'), horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
-    plt.tight_layout()
+
+    # Plot confusion matrix.
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=class_names)
+    disp.plot(cmap='Greens')
+    plt.title('Förvirringsmatris för ' + model_type + ' med ' + dataset_name + '-dataset')
     plt.ylabel('Faktiskt värde')
     plt.xlabel('Förutspått värde')
+    plt.tight_layout()
     plt.show()
 
 
-def predict_model(clf, x_test):
+def predict_and_evaluate_model(model, model_type, dataset_name, class_names, x_test, y_test):
     """
-    Function to make predictions using a trained model classifier
-    :param clf: Trained decision tree classifier
-    :param x_test: Test data features
-    :return: Array of predicted labels for the test data
+    Predicts and evaluates model and plots the confusion matrix based on the results.
+
+    :param model: Trained model.
+    :param model_type: Type of model.
+    :param dataset_name: Name of dataset.
+    :param class_names: Names of the classes in the dataset.
+    :param x_test: Features of the test data.
+    :param y_test: True labels of the test dataset.
     """
-    return clf.predict(x_test)
+    y_pred = predict_model(model, x_test)
+    accuracy, precision, recall, f1 = evaluate_model(y_test, y_pred)
+
+    print(f'{model_type} = Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}, F1 Score: {f1}')
+    generate_confusion_matrix(model_type, dataset_name, class_names, y_test, y_pred)
