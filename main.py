@@ -34,7 +34,8 @@ def run_model(model_type, dataset_name, samples, test_size):
 
 def main():
     # Train and evaluate decision tree model with Iris dataset.
-    run_model('DT', 'Iris', 0.3)
+    # run_model('DT', 'MNIST', 1000)
+    run_model('DT', 'MNIST', 70, 10)
 
     # Train and evaluate support vector machine model with Iris dataset.
     # run_model('SVM', 'MNIST', 0.3)

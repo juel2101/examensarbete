@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
 
 
-def load_dataset(dataset_name):
+def load_dataset(dataset_name, samples, random_state):
     """
     Load a specified dataset. Return the data, labels and class name.
 
@@ -37,19 +37,23 @@ def load_dataset(dataset_name):
         class_names = dataset.target_names
     else:
         raise ValueError("Datasetet kändes inte igen.")
+
+    if samples is not None:
+        x, y = resample(x, y, n_samples=samples, random_state=random_state, replace=False)
+
     return x, y, class_names
 
 
-def process_dataset(dataset_name, test_size, random_state):
+def process_dataset(dataset_name, test_size, samples, random_state):
     """
-    Processes the given dataset using a specified model.
-
+    Processes the given dataset using a specified mode
     :param dataset_name: The name of the dataset
     :param test_size: The amount of data that is used for testing
+    :param samples: Number of samples
     :param random_state: Controls shuffling of the dataset before splitting.
     """
     # Load dataset.
-    x, y, class_names = load_dataset(dataset_name)
+    x, y, class_names = load_dataset(dataset_name, samples, random_state)
 
     # Split dataset into train and test data.
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=random_state)
