@@ -5,6 +5,7 @@
 from sklearn.datasets import fetch_covtype, fetch_openml
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
+from sklearn.utils import resample
 
 
 def load_dataset(dataset_name):
@@ -12,11 +13,13 @@ def load_dataset(dataset_name):
     Load a specified dataset. Return the data, labels and class name.
 
     :param dataset_name: Name of the dataset to load (iris or mnist)
+    :param samples: Number of samples.
+    :param random_state: Controls shuffling of the dataset.
 
     :return: x: feature data of the dataset,
     :return: y: target or label data corresponding to x and tha name of the classes in the dataset.
     """
-    if dataset_name == 'coverType':
+    if dataset_name == 'Covertype':
         data = fetch_covtype()
         x = data.data
         y = data.target

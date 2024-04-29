@@ -59,6 +59,7 @@ def generate_confusion_matrix(model_type, dataset_name, class_names, y_test, y_p
     plt.title('Förvirringsmatris för ' + model_type + ' med ' + dataset_name + '-dataset')
     plt.ylabel('Faktiskt värde')
     plt.xlabel('Förutspått värde')
+    plt.xticks(rotation=90)
     plt.tight_layout()
     plt.show()
 
