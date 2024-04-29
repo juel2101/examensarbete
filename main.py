@@ -1,8 +1,6 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
 # Date: 2024-04-26
-import numpy as np
-from sklearn.datasets import fetch_covtype
 
 import preprocessing
 import models
