@@ -7,7 +7,6 @@ from sklearn.datasets import fetch_covtype
 import preprocessing
 import models
 import evaluation
-import balancing
 
 
 def run_model(model_type, dataset_name, samples, test_size):
@@ -48,7 +47,7 @@ def main():
 
     # x_resampled, y_resampled = balancing.undersample_dataset(dataset_name)
 
-    # balancing.plot_distribution(x_resampled, y_resampled, class_names, dataset_name)
+    # evaluation.plot_distribution(x_resampled, y_resampled, class_names, dataset_name)
 
 
 if __name__ == "__main__":

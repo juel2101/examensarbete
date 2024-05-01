@@ -1,8 +1,7 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
 # Date: 2024-04-26
-
-from sklearn.datasets import fetch_covtype, fetch_openml, load_files
+from sklearn.datasets import fetch_covtype, fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
 from imblearn.under_sampling import RandomUnderSampler
@@ -42,7 +41,7 @@ def load_dataset(dataset_name, samples, random_state=42):
         covertype = fetch_covtype()
         x, y = undersample_dataset(covertype.data, covertype.target)
         class_names = ['Spruce/Fir', 'Lodgepole Pine', 'Ponderosa Pine', 'Cottonwood/Willow', 'Aspen', 'Douglas-fir',
-                    'Krummholz']
+                       'Krummholz']
     elif dataset_name == 'MNIST':
         mnist = fetch_openml('mnist_784', version=1)
         x = mnist.data / 255.0
