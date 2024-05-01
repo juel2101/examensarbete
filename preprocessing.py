@@ -7,6 +7,8 @@ from sklearn.utils import resample
 from imblearn.under_sampling import RandomUnderSampler
 from collections import Counter
 
+import evaluation
+
 
 def undersample_dataset(x, y, random_state=42):
     # Calculate the frequency of each class
@@ -47,6 +49,13 @@ def load_dataset(dataset_name, samples, random_state=42):
         x = mnist.data / 255.0
         y = mnist.target.astype(int)
         class_names = [str(i) for i in range(10)]
+    elif dataset_name == 'Bank marketing':
+        bank_marketing = fetch_openml('bank-marketing', version=8)
+        x = bank_marketing.data
+        y = bank_marketing.target
+
+        class_names = ['Ja', 'Nej']  # Anpassa detta enligt ditt behov
+
     else:
         raise ValueError("Datasetet kändes inte igen.")
 
@@ -66,6 +75,8 @@ def process_dataset(dataset_name, test_size, samples, random_state):
     """
     # Load dataset.
     x, y, class_names = load_dataset(dataset_name, samples, random_state)
+
+    evaluation.plot_distribution(x, y, class_names, dataset_name)
 
     # Split dataset into train and test data.
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=random_state)

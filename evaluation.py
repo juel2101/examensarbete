@@ -5,6 +5,7 @@
 from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, \
     ConfusionMatrixDisplay
+import pandas as pd
 
 
 def predict_model(model, x_test):
@@ -79,4 +80,30 @@ def predict_and_evaluate_model(model, model_type, dataset_name, class_names, x_t
     accuracy, precision, recall, f1 = evaluate_model(y_test, y_pred)
 
     print(f'{model_type} = Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}, F1 Score: {f1}')
-    generate_confusion_matrix(model_type, dataset_name, class_names, y_test, y_pred)
+    # generate_confusion_matrix(model_type, dataset_name, class_names, y_test, y_pred)
+
+
+def plot_distribution(x, y, class_names, dataset_name):
+
+    # Convert the dataset into a DataFrame
+    dataset_df = pd.DataFrame(data=x, columns=class_names)
+
+    # Add the target variable 'Cover_Type' to the DataFrame
+    dataset_df['Cover_Type'] = y
+
+    # Count occurrences of each class label
+    class_distribution = dataset_df['Cover_Type'].value_counts()
+
+    # Sort the class distribution by the class label (index) instead of count
+    class_distribution_sorted = class_distribution.sort_index()
+
+    # Plot the distribution
+    plt.figure(figsize=(10, 6))
+    class_distribution_sorted.plot(kind='bar')
+    plt.title(dataset_name + '-dataset klassdistribution')
+    plt.xlabel('Klassnamn')
+    plt.ylabel('Frekvens')
+    plt.xticks(rotation=0)  # Rotate x-axis labels for better readability
+    plt.grid(axis='y', linestyle='--', alpha=0.7)  # Add grid lines
+    plt.tight_layout()
+    plt.show()
