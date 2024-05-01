@@ -2,13 +2,32 @@
 # Course: DT099G, Examensarbete
 # Date: 2024-04-26
 
-from sklearn.datasets import fetch_covtype, fetch_openml
-from sklearn import datasets
+from sklearn.datasets import fetch_covtype, fetch_openml, load_files
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
+from imblearn.under_sampling import RandomUnderSampler
+from collections import Counter
 
 
-def load_dataset(dataset_name, samples, random_state):
+def undersample_dataset(x, y, random_state=42):
+    # Calculate the frequency of each class
+    class_frequencies = Counter(y)
+
+    # Determine the minimum frequency
+    min_frequency = min(class_frequencies.values())
+
+    # Set the undersampling strategy to match the minimum class frequency
+    undersample_strategy = {class_label: min_frequency for class_label in class_frequencies}
+
+    undersampler = RandomUnderSampler(sampling_strategy=undersample_strategy, random_state=random_state)
+
+    # Apply the undersampler to the dataset
+    x_resampled, y_resampled = undersampler.fit_resample(x, y)
+
+    return x_resampled, y_resampled
+
+
+def load_dataset(dataset_name, samples, random_state=42):
     """
     Load a specified dataset. Return the data, labels and class name.
 
@@ -20,21 +39,15 @@ def load_dataset(dataset_name, samples, random_state):
     :return: y: target or label data corresponding to x and tha name of the classes in the dataset.
     """
     if dataset_name == 'Covertype':
-        data = fetch_covtype()
-        x = data.data
-        y = data.target
+        covertype = fetch_covtype()
+        x, y = undersample_dataset(covertype.data, covertype.target)
         class_names = ['Spruce/Fir', 'Lodgepole Pine', 'Ponderosa Pine', 'Cottonwood/Willow', 'Aspen', 'Douglas-fir',
-                       'Krummholz']
+                    'Krummholz']
     elif dataset_name == 'MNIST':
         mnist = fetch_openml('mnist_784', version=1)
         x = mnist.data / 255.0
         y = mnist.target.astype(int)
         class_names = [str(i) for i in range(10)]
-    elif dataset_name == 'Iris':
-        dataset = datasets.load_iris()
-        x = dataset.data
-        y = dataset.target
-        class_names = dataset.target_names
     else:
         raise ValueError("Datasetet kändes inte igen.")
 

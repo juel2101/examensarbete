@@ -1,10 +1,13 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
 # Date: 2024-04-26
+from matplotlib import pyplot as plt
+from sklearn.datasets import fetch_covtype
 
 import preprocessing
 import models
 import evaluation
+import balancing
 
 
 def run_model(model_type, dataset_name, samples, test_size):
@@ -33,10 +36,19 @@ def run_model(model_type, dataset_name, samples, test_size):
 def main():
     # Train and evaluate decision tree model with Iris dataset.
     # run_model('DT', 'MNIST', 1000)
-    run_model('DT', 'MNIST', 70, 10)
+    run_model('SVM', 'Covertype', 10000, 3000)
 
     # Train and evaluate support vector machine model with Iris dataset.
     # run_model('SVM', 'MNIST', 0.3)
+
+    # dataset_name = 'Covertype'
+    # x, y, class_names = preprocessing.load_dataset(dataset_name, None, 42)
+
+    # balancing.plot_distribution(x, y, class_names, dataset_name)
+
+    # x_resampled, y_resampled = balancing.undersample_dataset(dataset_name)
+
+    # balancing.plot_distribution(x_resampled, y_resampled, class_names, dataset_name)
 
 
 if __name__ == "__main__":

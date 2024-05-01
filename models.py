@@ -29,6 +29,7 @@ def train_svm_model(x_train, y_train):
 
     :return: Trained SVM model.
     """
-    model = svm.SVC(kernel='linear')
+    # model = svm.SVC(kernel='linear')
+    model = svm.SVC(kernel='rbf')
     model.fit(x_train, y_train)
     return model
