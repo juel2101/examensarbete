@@ -1,6 +1,6 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
-# Date: 2024-04-26
+# Date: 2024-05-02
 
 from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, \

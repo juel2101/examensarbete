@@ -35,10 +35,9 @@ def main():
     run_model('DT', 'Bank marketing', None, 0.3)
     run_model('SVM', 'MNIST', None, 0.3)
 
-    # Train and evaluate support vector machine model with Iris dataset.
+    # Train and evaluate support vector machine model with MNIST dataset.
     # run_model('SVM', 'MNIST', 0.3)
 
-    # dataset_name = 'Covertype'
     # x, y, class_names = preprocessing.load_dataset(dataset_name, None, 42)
 
     # evaluation.plot_distribution(x, y, class_names, dataset_name)
