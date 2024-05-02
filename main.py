@@ -23,25 +23,18 @@ def run_model(model_type, dataset_name, samples, test_size):
     # Train model.
     model = models.train_model(model_type, x_train, y_train)
 
-    evaluation.predict_and_evaluate_model(model, model_type, dataset_name, class_names, x_test, y_test)
+    # Test model.
+    y_pred = model.predict(x_test)
+
+    # Evaluate model.
+    evaluation.evaluate_model(model_type, dataset_name, class_names, y_test, y_pred)
 
 
 def main():
-    # Train and evaluate decision tree model with Iris dataset.
-    # run_model('DT', 'MNIST', 1000)
     run_model('DT', 'Bank Marketing', None, 0.3)
     run_model('SVM', 'Bank Marketing', None, 0.3)
-
-    # Train and evaluate support vector machine model with MNIST dataset.
-    # run_model('SVM', 'MNIST', 0.3)
-
-    # x, y, class_names = preprocessing.load_dataset(dataset_name, None, 42)
-
-    # evaluation.plot_distribution(x, y, class_names, dataset_name)
-
-    # x_resampled, y_resampled = preprocessing.undersample_dataset()
-
-    # evaluation.plot_distribution(x_resampled, y_resampled, class_names, dataset_name)
+    # run_model('DT', 'MNIST', None, 10000)
+    # run_model('SVM', 'MNIST', None, 10000)
 
 
 if __name__ == "__main__":

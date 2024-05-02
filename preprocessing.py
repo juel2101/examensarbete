@@ -53,7 +53,7 @@ def process_dataset(dataset_name, test_size, samples, random_state=1234):
     # Load dataset.
     x, y, class_names = load_dataset(dataset_name, samples, random_state)
 
-    evaluation.plot_distribution(x, y, class_names, dataset_name)
+    evaluation.plot_distribution(y, dataset_name)
 
     # Split dataset into train and test data.
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=random_state)
