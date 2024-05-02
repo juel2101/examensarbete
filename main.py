@@ -1,6 +1,7 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
-# Date: 2024-04-26
+# Date: 2024-05-02
+
 import preprocessing
 import models
 import evaluation
@@ -17,14 +18,10 @@ def run_model(model_type, dataset_name, samples, test_size):
     """
     # Load and process dataset.
     x_train, x_test, y_train, y_test, class_names = (
-        preprocessing.process_dataset(dataset_name, test_size, samples, 42))
-    model = None
+        preprocessing.process_dataset(dataset_name, test_size, samples, 123))
 
-    # Train model based on type of model.
-    if model_type == 'DT':
-        model = models.train_dt_model(x_train, y_train)
-    elif model_type == 'SVM':
-        model = models.train_svm_model(x_train, y_train)
+    # Train model.
+    model = models.train_model(model_type, x_train, y_train)
 
     evaluation.predict_and_evaluate_model(model, model_type, dataset_name, class_names, x_test, y_test)
 
@@ -32,8 +29,8 @@ def run_model(model_type, dataset_name, samples, test_size):
 def main():
     # Train and evaluate decision tree model with Iris dataset.
     # run_model('DT', 'MNIST', 1000)
-    run_model('DT', 'Bank marketing', None, 0.3)
-    run_model('SVM', 'MNIST', None, 0.3)
+    run_model('DT', 'Bank Marketing', None, 0.3)
+    run_model('SVM', 'Bank Marketing', None, 0.3)
 
     # Train and evaluate support vector machine model with MNIST dataset.
     # run_model('SVM', 'MNIST', 0.3)

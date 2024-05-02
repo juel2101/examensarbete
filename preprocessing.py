@@ -9,7 +9,7 @@ from sklearn.utils import resample
 import evaluation
 
 
-def load_dataset(dataset_name, samples, random_state=42):
+def load_dataset(dataset_name, samples, random_state):
     """
     Load a specified dataset. Return the data, labels and class name.
 
@@ -26,7 +26,7 @@ def load_dataset(dataset_name, samples, random_state=42):
         x = mnist.data / 255.0
         y = mnist.target.astype(int)
         class_names = [str(i) for i in range(10)]
-    elif dataset_name == 'Bank marketing':
+    elif dataset_name == 'Bank Marketing':
         bank_marketing = fetch_openml('bank-marketing', version=8)
         x = bank_marketing.data
         y = bank_marketing.target
@@ -42,7 +42,7 @@ def load_dataset(dataset_name, samples, random_state=42):
     return x, y, class_names
 
 
-def process_dataset(dataset_name, test_size, samples, random_state):
+def process_dataset(dataset_name, test_size, samples, random_state=1234):
     """
     Processes the given dataset using a specified mode
     :param dataset_name: The name of the dataset
