@@ -1,10 +1,10 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
 # Date: 2024-05-02
+
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report
-import pandas as pd
 
 
 def generate_confusion_matrix(model_type, dataset_name, class_names, y_test, y_pred):
@@ -27,7 +27,6 @@ def generate_confusion_matrix(model_type, dataset_name, class_names, y_test, y_p
     plt.title('Förvirringsmatris för ' + model_type + ' med ' + dataset_name + '-dataset')
     plt.ylabel('Faktiskt värde')
     plt.xlabel('Förutspått värde')
-    plt.xticks(rotation=90)
     plt.tight_layout()
     plt.show()
 
@@ -52,6 +51,12 @@ def evaluate_model(model_type, dataset_name, class_names, y_test, y_pred):
 
 
 def plot_distribution(y, dataset_name):
+    """
+    Plots the distribution of the classes in the dataset.
+
+    :param y: Labels of the dataset
+    :param dataset_name: Name of the dataset
+    """
     unique_classes, class_counts = np.unique(y, return_counts=True)
 
     plt.figure(figsize=(10, 6))
@@ -60,6 +65,6 @@ def plot_distribution(y, dataset_name):
     plt.xlabel('Klassnamn')
     plt.ylabel('Frekvens')
     plt.xticks(unique_classes)
-    plt.grid(axis='y', linestyle='--', alpha=0.7)  # Add grid lines
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
     plt.show()

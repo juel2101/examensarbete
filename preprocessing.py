@@ -5,20 +5,20 @@
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
-
 import evaluation
 
 
 def load_dataset(dataset_name, samples, random_state):
     """
-    Load a specified dataset. Return the data, labels and class name.
+    Load and preprocess specified dataset.
 
-    :param dataset_name: Name of the dataset to load (iris or mnist)
+    :param dataset_name: Name of the dataset to load.
     :param samples: Number of samples.
     :param random_state: Controls shuffling of the dataset.
 
-    :return: x: feature data of the dataset,
+    :return: x: feature data of the dataset.
     :return: y: target or label data corresponding to x and tha name of the classes in the dataset.
+    :return class_names: names of the classes in the dataset.
     """
 
     if dataset_name == 'MNIST':
@@ -30,8 +30,7 @@ def load_dataset(dataset_name, samples, random_state):
         bank_marketing = fetch_openml('bank-marketing', version=8)
         x = bank_marketing.data
         y = bank_marketing.target
-
-        class_names = ['Ja', 'Nej']  # Anpassa detta enligt ditt behov
+        class_names = ['Ja', 'Nej']
 
     else:
         raise ValueError("Datasetet kändes inte igen.")
@@ -42,18 +41,23 @@ def load_dataset(dataset_name, samples, random_state):
     return x, y, class_names
 
 
-def process_dataset(dataset_name, test_size, samples, random_state=1234):
+def process_dataset(dataset_name, test_size, samples, random_state=123):
     """
-    Processes the given dataset using a specified mode
-    :param dataset_name: The name of the dataset
-    :param test_size: The amount of data that is used for testing
-    :param samples: Number of samples
+    Processes the given dataset.
+
+    :param dataset_name: The name of the dataset.
+    :param test_size: The amount of data that is used for testing.
+    :param samples: Number of samples.
     :param random_state: Controls shuffling of the dataset before splitting.
+
+    :return x_train: Training data features.
+    :return x_test: Testing data features.
+    :return y_train: Training data labels.
+    :return y_test: Testing data labels.
+    :return class_names: Name of classes in the dataset.
     """
     # Load dataset.
     x, y, class_names = load_dataset(dataset_name, samples, random_state)
-
-    evaluation.plot_distribution(y, dataset_name)
 
     # Split dataset into train and test data.
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=random_state)
