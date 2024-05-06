@@ -20,6 +20,8 @@ def run_model(model_type, dataset_name, samples, test_size):
     x_train, x_test, y_train, y_test, class_names = (
         preprocessing.process_dataset(dataset_name, test_size, samples, 123))
 
+    models.optimize_model(model_type, x_train, y_train)
+
     # Train model.
     model = models.train_model(model_type, x_train, y_train)
 
@@ -31,10 +33,10 @@ def run_model(model_type, dataset_name, samples, test_size):
 
 
 def main():
-    run_model('DT', 'Bank Marketing', None, 0.2)
-    run_model('SVM', 'Bank Marketing', None, 0.2)
-    # run_model('DT', 'MNIST', None, 10000)
-    # run_model('SVM', 'MNIST', None, 10000)
+    # run_model('DT', 'Bank Marketing', None, 0.2)
+    # run_model('SVM', 'Bank Marketing', None, 0.2)
+    run_model('DT', 'MNIST', None, 10000)
+    run_model('SVM', 'MNIST', None, 10000)
 
 
 if __name__ == "__main__":
