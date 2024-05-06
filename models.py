@@ -26,7 +26,13 @@ def train_model(model_type, x_train, y_train):
                 break
             model.tree_.children_left[weakest_link] = model.tree_.children_right[weakest_link] = -1
     elif model_type == 'SVM':
-        model = svm.SVC(kernel='rbf')
+        grid = {
+            'C': [0.1, 1, 10, 100],
+            'gamma': [1, 0.1, 0.01, 0.001],
+            'kernel': ['rbf']
+        }
+        model = GridSearchCV(estimator=svm.SVC(), param_grid=grid, cv=5)
+        print(model.best_params_)
     else:
         raise ValueError("Modellens typ kändes inte igen.")
 
