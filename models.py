@@ -1,8 +1,8 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
 # Date: 2024-05-02
-
-from sklearn.model_selection import GridSearchCV
+import optuna
+from sklearn.model_selection import GridSearchCV, cross_val_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import svm
 from sklearn.pipeline import Pipeline
@@ -18,38 +18,34 @@ def train_model(model_type, x_train, y_train):
     :param y_train: Training data labels.
 
     :return: The trained model.
+
+    Bankmarketing = criterion='gini', max_depth=10, min_samples_leaf=20, min_samples_split=2
     """
     if model_type == 'DT':
-        pipeline = Pipeline([
-            ('scaler', StandardScaler()),
-            ('classifier', DecisionTreeClassifier())
-        ])
+        model = DecisionTreeClassifier()
     elif model_type == 'SVM':
-        pipeline = Pipeline([
+        model = Pipeline([
             ('scaler', StandardScaler()),
             ('classifier', svm.SVC(kernel='rbf'))
         ])
     else:
         raise ValueError("Modellens typ kändes inte igen.")
 
-    pipeline.fit(x_train, y_train)
-    return pipeline
+    model.fit(x_train, y_train)
+    return model
 
 
 def optimize_model(model_type, x_train, y_train):
     if model_type == 'DT':
-        pipeline = Pipeline([
-            ('scaler', StandardScaler()),
-            ('classifier', DecisionTreeClassifier())
-        ])
+        model = DecisionTreeClassifier()
         grid = {
-            'classifier__max_depth': list(range(1, 40)),
-            'classifier__min_samples_split': list(range(1, 40)),
-            'classifier__min_samples_leaf': list(range(1, 20)),
-            'classifier__criterion': ['gini', 'entropy', 'log_loss']
+            'max_depth': [None, 1, 5, 10, 15, 20],
+            'min_samples_split': [2, 4, 8, 16, 32],
+            'min_samples_leaf': [1, 5, 10, 15, 20],
+            'criterion': ['gini', 'entropy', 'log_loss']
         }
     elif model_type == 'SVM':
-        pipeline = Pipeline([
+        model = Pipeline([
             ('scaler', StandardScaler()),
             ('classifier', svm.SVC(kernel='rbf'))
         ])
@@ -60,6 +56,6 @@ def optimize_model(model_type, x_train, y_train):
     else:
         raise ValueError("Modellens typ kändes inte igen.")
 
-    model = GridSearchCV(estimator=pipeline, param_grid=grid, cv=5)
+    model = GridSearchCV(estimator=model, param_grid=grid, cv=3, verbose=3)
     model.fit(x_train, y_train)
     print(f"Bästa parametrarna: {model.best_params_} med noggrannheten: {model.best_score_}")
