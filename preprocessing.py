@@ -5,7 +5,6 @@
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
-import evaluation
 
 
 def load_dataset(dataset_name, samples, random_state):

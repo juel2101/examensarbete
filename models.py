@@ -24,10 +24,7 @@ def train_model(model_type, x_train, y_train):
     if model_type == 'DT':
         model = DecisionTreeClassifier()
     elif model_type == 'SVM':
-        model = Pipeline([
-            ('scaler', StandardScaler()),
-            ('classifier', svm.SVC(kernel='rbf'))
-        ])
+        model = svm.SVC(kernel='rbf')
     else:
         raise ValueError("Modellens typ kändes inte igen.")
 
@@ -50,8 +47,8 @@ def optimize_model(model_type, x_train, y_train):
             ('classifier', svm.SVC(kernel='rbf'))
         ])
         grid = {
-            'classifier__C': [0.1, 1, 10, 100, 1000],
-            'classifier__gamma': [0.0001, 0.001, 0.01, 0.1, 1],
+            'classifier__C': [1, 10, 100, 1000],
+            'classifier__gamma': [0.0001, 0.001, 0.01, 0.1],
         }
     else:
         raise ValueError("Modellens typ kändes inte igen.")
