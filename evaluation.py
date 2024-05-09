@@ -42,10 +42,10 @@ def evaluate_model(model_type, dataset_name, class_names, y_test, y_pred):
     :param y_pred: Predicted labels of the test dataset.
     """
     accuracy = accuracy_score(y_test, y_pred)
-    print(f'{model_type} = Accuracy: {accuracy}')
+    print('Noggrannhet (accuracy): {:.4f}\n'.format(accuracy))
 
     clr = classification_report(y_test, y_pred)
-    print(f'Resultat {model_type}:\n---------\n', clr)
+    print(f'Resultat {model_type}:\n', clr)
 
     generate_confusion_matrix(model_type, dataset_name, class_names, y_test, y_pred)
 
