@@ -1,6 +1,6 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
-# Date: 2024-05-02
+# Date: 2024-05-09
 
 import numpy as np
 from matplotlib import pyplot as plt
