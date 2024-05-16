@@ -1,6 +1,6 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
-# Date: 2024-05-02
+# Date: 2024-05-09
 
 import preprocessing
 import models
@@ -23,6 +23,12 @@ def run_model(model_type, dataset_name, samples, test_size):
     # Train model.
     model = models.train_model(model_type, x_train, y_train)
 
+    # Find optimal hyperparameters for model.
+    # models.find_optimal_hyperparameters(model_type, x_train, y_train, dataset_name)
+
+    # Train optimized model.
+    # model = models.optimized_train_model(model_type, x_train, y_train, dataset_name)
+
     # Test model.
     y_pred = model.predict(x_test)
 
@@ -31,10 +37,10 @@ def run_model(model_type, dataset_name, samples, test_size):
 
 
 def main():
-    run_model('DT', 'Bank Marketing', None, 0.3)
-    run_model('SVM', 'Bank Marketing', None, 0.3)
-    # run_model('DT', 'MNIST', None, 10000)
-    # run_model('SVM', 'MNIST', None, 10000)
+    run_model('DT', 'Bank Marketing', None, 0.2)
+    run_model('SVM', 'Bank Marketing', None, 0.2)
+    run_model('DT', 'MNIST', None, 10000)
+    run_model('SVM', 'MNIST', None, 10000)
 
 
 if __name__ == "__main__":

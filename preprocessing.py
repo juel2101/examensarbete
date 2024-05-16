@@ -1,11 +1,10 @@
 # Authors: Caroline Berglin and Julia Ellström
 # Course: DT099G, Examensarbete
-# Date: 2024-05-02
+# Date: 2024-05-09
 
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
-import evaluation
 
 
 def load_dataset(dataset_name, samples, random_state):
