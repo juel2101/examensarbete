@@ -25,7 +25,7 @@ def process_dataset(dataset_name, model, test_size):
 
 def main():
     process_dataset('coverType', decisionTree, 0.3)
-    # process_dataset('mnist', decisionTree, 0.5)
+    process_dataset('mnist', decisionTree, 10000)
 
 
 if __name__ == '__main__':
