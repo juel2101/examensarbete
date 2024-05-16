@@ -37,10 +37,10 @@ def run_model(model_type, dataset_name, samples, test_size):
 
 
 def main():
-    # run_model('DT', 'Bank Marketing', None, 0.2)
+    run_model('DT', 'Bank Marketing', None, 0.2)
     run_model('SVM', 'Bank Marketing', None, 0.2)
-    # run_model('DT', 'MNIST', None, 10000)
-    # run_model('SVM', 'MNIST', None, 10000)
+    run_model('DT', 'MNIST', None, 10000)
+    run_model('SVM', 'MNIST', None, 10000)
 
 
 if __name__ == "__main__":

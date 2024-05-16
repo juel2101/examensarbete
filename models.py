@@ -22,7 +22,7 @@ def train_model(model_type, x_train, y_train):
     if model_type == 'DT':
         model = DecisionTreeClassifier()
     elif model_type == 'SVM':
-        model = svm.SVC(kernel='rbf')
+        model = svm.SVC()
     else:
         raise ValueError("Modellens typ kändes inte igen.")
 
@@ -50,17 +50,17 @@ def find_optimal_hyperparameters(model_type, x_train, y_train, dataset_name):
     elif model_type == 'SVM' and dataset_name == 'Bank Marketing':
         model = Pipeline([
             ('scaler', StandardScaler()),
-            ('classifier', svm.SVC(kernel='rbf'))
+            ('classifier', svm.SVC())
         ])
         grid = {
             'classifier__C': [1, 10, 100, 1000],
-            'classifier__gamma': [0.0001, 0.001, 0.01, 0.1],
+            'classifier__gamma': [0.0001, 0.001, 0.01, 0.1]
         }
     elif model_type == 'SVM' and dataset_name == 'MNIST':
-        model = svm.SVC(kernel='rbf')
+        model = svm.SVC()
         grid = {
             'C': [1, 10, 100, 1000],
-            'gamma': [0.0001, 0.001, 0.01, 0.1],
+            'gamma': [0.0001, 0.001, 0.01, 0.1]
         }
     else:
         raise ValueError("Modellens typ kändes inte igen.")
@@ -88,10 +88,10 @@ def optimized_train_model(model_type, x_train, y_train, dataset_name):
     elif model_type == 'SVM' and dataset_name == 'Bank Marketing':
         model = Pipeline([
             ('scaler', StandardScaler()),
-            ('classifier', svm.SVC(kernel='rbf', C=1, gamma=0.1))
+            ('classifier', svm.SVC(C=1, gamma=0.1))
         ])
     elif model_type == 'SVM' and dataset_name == 'MNIST':
-        model = svm.SVC(kernel='rbf', C=100, gamma=0.01)
+        model = svm.SVC(C=100, gamma=0.01)
     else:
         raise ValueError("Modellens typ kändes inte igen.")
 
